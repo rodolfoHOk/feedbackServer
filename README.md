@@ -22,6 +22,8 @@
 
 - Endpoint de criação de feedback retorna o feedback salvo no banco de dados
 
+- Testes para serviço de listagem de feedback
+
 ## 🗃️ Guia 📚
 
 - Iniciando um projeto Node Js
@@ -118,20 +120,40 @@
   4. Segregar as interfaces sempre que possível classes implementarão várias interfaces ao invés de uma MegaInterface.
   5. Ao invés da classe buscar as dependências o contexto externo a ela que diz quais a classe usará.
 
+- Configurando o Jest para testes
+
+        npm i jest -D
+        npx jest --init
+        npm i ts-node -D
+        npm i @swc/jest -D
+        npm i @types/jest -D
+
+        no jest.config.ts substituir:
+          transform: {
+            '^.+\\.(t|j)sx?$': ['@swc/jest'],
+          },
+
+- Instalando Cors
+
+        npm i cors
+        npm i @types/cors -D
+
 ## 🔗 Links úteis ✨
 
 - [Prisma](https://www.prisma.io/) : Next-generation Node.js and TypeScript ORM
 
 - [mailtrap](https://mailtrap.io/) : Email Sandbox Service
 
+- [SWC](https://swc.rs/) : Rust-based platform for the Web
+
+- [SWC Jest Docs](https://swc.rs/docs/usage/jest) : To make your Jest tests run faster
+
 ## 🔥 Repositórios da NLW Return 🫶
 
 - [Front-End WEB](https://github.com/rodolfoHOk/rocketseat.feedback-widget-web)
 
-- [Back-End]() - em breve
+- [Back-End](https://github.com/rodolfoHOk/rocketseat.feedback-widget-server)
 
 - [Mobile]() - em breve
 
 - [Design no Figma](https://www.figma.com/community/file/1102912516166573468/Feedback-Widget)
-
-# break 1:27:00

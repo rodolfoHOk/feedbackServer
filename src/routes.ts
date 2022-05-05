@@ -1,17 +1,8 @@
 import express from 'express';
-// import nodemailer from 'nodemailer';
+import { NodemailerMailAdapter } from './adapters/nodemailer/nodemailer-mail-adapter';
 import { PrismaFeedbacksRepository } from './repositories/prisma/prisma-feedbacks-repository';
 import { ListFeedbacksService } from './services/list-feedbacks-service';
 import { SubmitFeedBackService } from './services/submit-feedback-service';
-
-// const transport = nodemailer.createTransport({
-//   host: 'smtp.mailtrap.io',
-//   port: 2525,
-//   auth: {
-//     user: '6e7dcbabb39c2d',
-//     pass: 'a2b44f941ab81e',
-//   },
-// });
 
 export const routes = express.Router();
 
@@ -34,8 +25,10 @@ routes.post('/feedbacks', async (req, res) => {
   const { type, comment, screenshot } = req.body;
 
   const prismaFeedbacksRepository = new PrismaFeedbacksRepository();
+  const nodemailerMailAdapter = new NodemailerMailAdapter();
   const submitFeedBackService = new SubmitFeedBackService(
-    prismaFeedbacksRepository
+    prismaFeedbacksRepository,
+    nodemailerMailAdapter
   );
 
   const feedback = await submitFeedBackService.execute({
@@ -43,18 +36,6 @@ routes.post('/feedbacks', async (req, res) => {
     comment,
     screenshot,
   });
-
-  // transport.sendMail({
-  //   from: 'Equipe FeedGet <oi@feedget.com>',
-  //   to: 'FeedGet Rudy <testes.dev.hiok@gmail.com>',
-  //   subject: 'Novo feedback',
-  //   html: [
-  //     `<div style="font-family: sans-serif; font-size: 16px; color: #111;">`,
-  //     `<p>Tipo do feedback: ${type}</p>`,
-  //     `<p>Comentário: ${comment}</p>`,
-  //     `</div>`,
-  //   ].join('\n'),
-  // });
 
   return res.status(201).send({ data: feedback });
 });
