@@ -16,6 +16,8 @@
 
 - SOLID : Cinco princípios da programação orientada a objetos
 
+- Jest : Framework para testes unitários
+
 ## ➕ O que fiz além ✨
 
 - Endpoint para listagem de feedback
@@ -154,6 +156,6 @@
 
 - [Back-End](https://github.com/rodolfoHOk/rocketseat.feedback-widget-server)
 
-- [Mobile]() - em breve
+- [Mobile](https://github.com/rodolfoHOk/rocketseat.feedback-widget-mobile)
 
 - [Design no Figma](https://www.figma.com/community/file/1102912516166573468/Feedback-Widget)
