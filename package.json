@@ -1,7 +1,7 @@
 {
-  "name": "server",
+  "name": "feedback-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Feedback Widget Server",
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "keywords": [],
-  "author": "",
+  "author": "Rudy HiOk",
   "license": "ISC",
   "devDependencies": {
     "@swc/jest": "^0.2.20",
