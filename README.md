@@ -140,6 +140,19 @@
         npm i cors
         npm i @types/cors -D
 
+## Ideias para a milha extra:
+
+1. Tema Light / dark - ok já fiz
+
+2. Em produção usar algum serviço de e-mail
+
+3. Melhorar HTML e CSS do email
+
+4. Dashboard de feedbacks
+   a. Autenticação (firebase / Oauth)
+
+5. Validação de campos e erros
+
 ## 🔗 Links úteis ✨
 
 - [Prisma](https://www.prisma.io/) : Next-generation Node.js and TypeScript ORM
