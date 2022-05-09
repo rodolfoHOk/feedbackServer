@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request } from 'express';
 import { NodemailerMailAdapter } from './adapters/nodemailer/nodemailer-mail-adapter';
 import { PrismaFeedbacksRepository } from './repositories/prisma/prisma-feedbacks-repository';
 import { ListFeedbacksService } from './services/list-feedbacks-service';
@@ -10,16 +10,21 @@ routes.get('/status', (req, res) => {
   return res.status(200).send('ok');
 });
 
-routes.get('/feedbacks', async (req, res) => {
-  const prismaFeedbacksRepository = new PrismaFeedbacksRepository();
-  const listFeedbacksService = new ListFeedbacksService(
-    prismaFeedbacksRepository
-  );
+routes.get(
+  '/feedbacks',
+  async (req: Request<{ page: number; size: number }>, res) => {
+    const { page, size } = req.params;
 
-  const feedbacks = await listFeedbacksService.execute();
+    const prismaFeedbacksRepository = new PrismaFeedbacksRepository();
+    const listFeedbacksService = new ListFeedbacksService(
+      prismaFeedbacksRepository
+    );
 
-  res.status(200).send({ data: feedbacks });
-});
+    const feedbacks = await listFeedbacksService.execute(page, size);
+
+    res.status(200).send({ data: feedbacks });
+  }
+);
 
 routes.post('/feedbacks', async (req, res) => {
   const { type, comment, screenshot } = req.body;

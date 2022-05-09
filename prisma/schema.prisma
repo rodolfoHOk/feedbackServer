@@ -19,3 +19,22 @@ model Feedback {
 
   @@map("feedbacks")
 }
+
+model User {
+  id String @id @default(uuid())
+
+  github_id   Int
+  login       String
+  name        String
+  avatar_url  String
+  role        Role
+  created_at  DateTime
+  last_access DateTime
+
+  @@map("users")
+}
+
+enum Role {
+  ADMIN
+  USER
+}

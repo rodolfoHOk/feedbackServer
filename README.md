@@ -18,14 +18,6 @@
 
 - Jest : Framework para testes unitários
 
-## ➕ O que fiz além ✨
-
-- Endpoint para listagem de feedback
-
-- Endpoint de criação de feedback retorna o feedback salvo no banco de dados
-
-- Testes para serviço de listagem de feedback
-
 ## 🗃️ Guia 📚
 
 - Iniciando um projeto Node Js
@@ -140,7 +132,48 @@
         npm i cors
         npm i @types/cors -D
 
-## Ideias para a milha extra:
+## ➕ Milha extra - O que fiz além ✨
+
+- Endpoint para listagem de feedback paginada
+
+- Endpoint de criação de feedback retorna o feedback salvo no banco de dados
+
+- Testes para serviço de listagem de feedback
+
+- ### Autenticação OAuth2 no Github
+
+        Cadastrar aplicação no github:
+          Github / Settings / Developer settings / OAuth Apps / new OAuth App
+          Gerar o client secret
+
+        Criar o Model User no prisma:
+          /prisma/schema.prisma
+
+        Criar tabela no banco:
+          npx prisma migrate dev
+
+        Instalar axios:
+          yarn add axios
+          yarn add @types/axios -D
+
+        Instalar jsonwebtoken:
+          yarn add jsonwebtoken
+          yarn add @types/jsonwebtoken -D
+
+        Criar o UsersRepository e usa implementação com Prisma
+
+        Criar o AuthenticateUserService:
+          Recebe código fornecido pelo github
+          Recupera o access_token no github
+          Recupera informações do usuário no github
+          Verificar se o usuário já existe no banco de dados
+              caso Sim: Gera um token
+              caso Não: Cria novo usuário no banco de dados e gera um token
+          Retorna o token e as informações do usuário
+
+
+
+## Ideias para milha extra
 
 1. Tema Light / dark - ok já fiz
 
@@ -149,7 +182,7 @@
 3. Melhorar HTML e CSS do email
 
 4. Dashboard de feedbacks
-   a. Autenticação (firebase / Oauth)
+   a. Autenticação Oauth
 
 5. Validação de campos e erros
 

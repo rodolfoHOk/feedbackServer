@@ -17,7 +17,23 @@ export class PrismaFeedbacksRepository implements FeedbacksRepository {
     });
   }
 
-  async findAll() {
-    return await prisma.feedback.findMany();
+  async findAll(page: number, size: number) {
+    const skip = (page - 1) * size;
+
+    return await prisma.feedback.findMany({
+      skip,
+      take: size,
+      orderBy: {
+        id: 'desc',
+      },
+    });
+  }
+
+  async count() {
+    return await prisma.feedback.count({
+      orderBy: {
+        id: 'desc',
+      },
+    });
   }
 }
