@@ -18,7 +18,7 @@ export class PrismaFeedbacksRepository implements FeedbacksRepository {
   }
 
   async findAll(page: number, size: number) {
-    const skip = (page - 1) * size;
+    const skip = Math.floor((page - 1) * size);
 
     return await prisma.feedback.findMany({
       skip,

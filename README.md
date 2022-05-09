@@ -171,7 +171,7 @@
               caso Não: Cria novo usuário no banco de dados e gera um token
           Retorna o token e as informações do usuário
 
-
+        próximo passo Criar o AuthenticationController:
 
 ## Ideias para milha extra
 

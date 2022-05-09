@@ -10,21 +10,21 @@ routes.get('/status', (req, res) => {
   return res.status(200).send('ok');
 });
 
-routes.get(
-  '/feedbacks',
-  async (req: Request<{ page: number; size: number }>, res) => {
-    const { page, size } = req.params;
+routes.get('/feedbacks', async (req, res) => {
+  const { page, size } = req.query;
 
-    const prismaFeedbacksRepository = new PrismaFeedbacksRepository();
-    const listFeedbacksService = new ListFeedbacksService(
-      prismaFeedbacksRepository
-    );
+  const prismaFeedbacksRepository = new PrismaFeedbacksRepository();
+  const listFeedbacksService = new ListFeedbacksService(
+    prismaFeedbacksRepository
+  );
 
-    const feedbacks = await listFeedbacksService.execute(page, size);
+  const feedbacks = await listFeedbacksService.execute(
+    page ? parseInt(page as string) : 1,
+    size ? parseInt(size as string) : 10
+  );
 
-    res.status(200).send({ data: feedbacks });
-  }
-);
+  res.status(200).send({ data: feedbacks });
+});
 
 routes.post('/feedbacks', async (req, res) => {
   const { type, comment, screenshot } = req.body;
