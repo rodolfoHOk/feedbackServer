@@ -140,7 +140,7 @@
 
 - Testes para serviço de listagem de feedback
 
-- ### Autenticação OAuth2 no Github
+- ### Autenticação OAuth2 com Github, Google e Facebook
 
         Cadastrar aplicação no github:
           Github / Settings / Developer settings / OAuth Apps / new OAuth App
@@ -188,22 +188,25 @@
           yarn add jsonwebtoken
           yarn add @types/jsonwebtoken -D
 
-        Instalar query-string
-
+        Instalar query-string:
           yarn add query-string
 
         Criar o UsersRepository e usa implementação com Prisma
 
+        Criar interface Provider
+
+        Criar implementações de Provider para Github, Google e Facebook
+
         Criar o AuthenticateUserService:
-          Recebe código fornecido pelo github
-          Recupera o access_token no github
-          Recupera informações do usuário no github
+          Recebe código fornecido pelo provedor de autenticação
+          Recupera o access_token do provedor de autenticação
+          Recupera informações do usuário de provedor de autenticação
           Verificar se o usuário já existe no banco de dados
               caso Sim: Gera um token
               caso Não: Cria novo usuário no banco de dados e gera um token
           Retorna o token e as informações do usuário
 
-        próximo passo Criar o AuthenticationController:
+        Criar um authentication controller para cada provider
 
 ## Ideias para milha extra
 
