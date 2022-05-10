@@ -1,16 +1,16 @@
 import { Role, User } from '@prisma/client';
 import axios from 'axios';
 import { sign } from 'jsonwebtoken';
-import { PrismaUsersRepository } from '../repositories/prisma/prisma-users-repository';
+import { UsersRepository } from '../repositories/users-repository';
 
 interface GitHubAccessToken {
   access_token: string;
 }
 
 interface GitHubUserInfos {
-  id: number;
-  login: string;
+  id: string;
   name: string;
+  email: string;
   avatar_url: string;
 }
 
@@ -20,7 +20,7 @@ export interface TokenAndAuthenticatedUser {
 }
 
 export class AuthenticateUserService {
-  constructor(private prismaUserRepository: PrismaUsersRepository) {}
+  constructor(private userRepository: UsersRepository) {}
 
   async execute(code: string): Promise<TokenAndAuthenticatedUser> {
     const githubAccessTokenResponse = await axios.post<GitHubAccessToken>(
@@ -47,22 +47,22 @@ export class AuthenticateUserService {
       }
     );
 
-    const { id, login, name, avatar_url } = githubUserInfosResponse.data;
+    const { id, name, email, avatar_url } = githubUserInfosResponse.data;
 
-    let user = await this.prismaUserRepository.findByGithubId(id);
+    let user = await this.userRepository.findBySocialId(id);
 
     if (!user) {
-      user = await this.prismaUserRepository.create({
-        github_id: id,
-        login,
+      user = await this.userRepository.create({
+        social_id: id,
         name,
+        email,
         avatar_url,
         role: Role.ADMIN,
         created_at: new Date(),
         last_access: new Date(),
       });
     } else {
-      user = await this.prismaUserRepository.updateLastAccess(user.id);
+      user = await this.userRepository.updateLastAccess(user.id);
     }
 
     const token = sign(

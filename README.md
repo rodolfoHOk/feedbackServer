@@ -188,6 +188,10 @@
           yarn add jsonwebtoken
           yarn add @types/jsonwebtoken -D
 
+        Instalar query-string
+
+          yarn add query-string
+
         Criar o UsersRepository e usa implementação com Prisma
 
         Criar o AuthenticateUserService:

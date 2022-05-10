@@ -5,9 +5,9 @@ import { User } from '@prisma/client';
 export class PrismaUsersRepository implements UsersRepository {
   async create(data: UserCreateData) {
     const {
-      github_id,
-      login,
+      social_id,
       name,
+      email,
       avatar_url,
       role,
       created_at,
@@ -16,9 +16,9 @@ export class PrismaUsersRepository implements UsersRepository {
 
     return await prisma.user.create({
       data: {
-        github_id,
-        login,
+        social_id,
         name,
+        email,
         avatar_url,
         role,
         created_at,
@@ -27,10 +27,10 @@ export class PrismaUsersRepository implements UsersRepository {
     });
   }
 
-  async findByGithubId(githubId: number) {
+  async findBySocialId(socialId: string) {
     return await prisma.user.findFirst({
       where: {
-        github_id: githubId,
+        social_id: socialId,
       },
     });
   }

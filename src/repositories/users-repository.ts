@@ -1,9 +1,9 @@
 import { Role, User } from '@prisma/client';
 
 export interface UserCreateData {
-  github_id: number;
-  login: string;
+  social_id: string;
   name: string;
+  email: string;
   avatar_url: string;
   role: Role;
   created_at: Date;
@@ -12,6 +12,6 @@ export interface UserCreateData {
 
 export interface UsersRepository {
   create: (data: UserCreateData) => Promise<User>;
-  findByGithubId: (githubId: number) => Promise<User | null>;
+  findBySocialId: (socialId: string) => Promise<User | null>;
   updateLastAccess: (id: string) => Promise<User>;
 }
