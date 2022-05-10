@@ -208,6 +208,8 @@
 
         Criar um authentication controller para cada provider
 
+        Criar o middleware authenticated e usá-lo nas rotas que necessitam de autenticação
+
 ## Ideias para milha extra
 
 1. Tema Light / dark - ok já fiz

@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
-import { authenticateRouter } from './auth/routes/autenticate-router';
+import { authenticated } from './auth/middlewares/authenticated';
+import { authenticateRouter } from './auth/routes/authenticate-router';
 import { CreateFeedbackController } from './controllers/create-feedback-controller';
 import { ListFeedbacksController } from './controllers/list-feedbacks-controller';
 
@@ -11,6 +12,6 @@ routes.get('/status', (req: Request, res: Response) => {
 
 routes.use('/auth', authenticateRouter);
 
-routes.get('/feedbacks', new ListFeedbacksController().handle);
-
 routes.post('/feedbacks', new CreateFeedbackController().handle);
+
+routes.get('/feedbacks', authenticated, new ListFeedbacksController().handle);

@@ -42,6 +42,7 @@ export class AuthenticateUserService {
         user: {
           id: user.id,
           name: user.name,
+          role: user.role,
         },
       },
       process.env.JWT_SECRET as string,
