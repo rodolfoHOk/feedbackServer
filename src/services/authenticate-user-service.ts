@@ -19,20 +19,17 @@ export interface TokenAndAuthenticatedUser {
   user: User;
 }
 
-const GITHUB_ACCESS_TOKEN_URL = 'https://github.com/login/oauth/access_token';
-const GITHUB_USER_INFOS_URL = 'https://api.github.com/user';
-
 export class AuthenticateUserService {
   constructor(private prismaUserRepository: PrismaUsersRepository) {}
 
   async execute(code: string): Promise<TokenAndAuthenticatedUser> {
     const githubAccessTokenResponse = await axios.post<GitHubAccessToken>(
-      GITHUB_ACCESS_TOKEN_URL,
+      process.env.GITHUB_TOKEN_URL as string,
       null,
       {
         params: {
-          client_id: process.env.CLIENT_ID,
-          client_secret: process.env.SECRET,
+          client_id: process.env.GITHUB_CLIENT_ID,
+          client_secret: process.env.GITHUB_CLIENT_SECRET,
           code,
         },
         headers: {
@@ -42,7 +39,7 @@ export class AuthenticateUserService {
     );
 
     const githubUserInfosResponse = await axios.get<GitHubUserInfos>(
-      GITHUB_USER_INFOS_URL,
+      process.env.GITHUB_USER_INFOS_URL as string,
       {
         headers: {
           authorization: `Bearer ${githubAccessTokenResponse.data.access_token}`,
