@@ -1,49 +1,16 @@
-import express from 'express';
-import { NodemailerMailAdapter } from './adapters/nodemailer/nodemailer-mail-adapter';
+import { Router, Request, Response } from 'express';
 import { authenticateRouter } from './auth/routes/autenticate-router';
-import { PrismaFeedbacksRepository } from './repositories/prisma/prisma-feedbacks-repository';
-import { ListFeedbacksService } from './services/list-feedbacks-service';
-import { SubmitFeedBackService } from './services/submit-feedback-service';
+import { CreateFeedbackController } from './controllers/create-feedback-controller';
+import { ListFeedbacksController } from './controllers/list-feedbacks-controller';
 
-export const routes = express.Router();
+export const routes = Router();
 
-routes.get('/status', (req, res) => {
-  return res.status(200).send('ok');
+routes.get('/status', (req: Request, res: Response) => {
+  return res.status(200).json({ status: 'ok' });
 });
 
 routes.use('/auth', authenticateRouter);
 
-routes.get('/feedbacks', async (req, res) => {
-  const { page, size } = req.query;
+routes.get('/feedbacks', new ListFeedbacksController().handle);
 
-  const prismaFeedbacksRepository = new PrismaFeedbacksRepository();
-  const listFeedbacksService = new ListFeedbacksService(
-    prismaFeedbacksRepository
-  );
-
-  const feedbacks = await listFeedbacksService.execute(
-    page ? parseInt(page as string) : 1,
-    size ? parseInt(size as string) : 10
-  );
-
-  res.status(200).send({ data: feedbacks });
-});
-
-routes.post('/feedbacks', async (req, res) => {
-  const { type, comment, screenshot } = req.body;
-
-  const prismaFeedbacksRepository = new PrismaFeedbacksRepository();
-  const nodemailerMailAdapter = new NodemailerMailAdapter();
-  const submitFeedBackService = new SubmitFeedBackService(
-    prismaFeedbacksRepository,
-    nodemailerMailAdapter
-  );
-
-  const feedback = await submitFeedBackService.execute({
-    type,
-    comment,
-    screenshot,
-  });
-
-  return res.status(201).send({ data: feedback });
-});
+routes.post('/feedbacks', new CreateFeedbackController().handle);
