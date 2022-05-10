@@ -1,5 +1,6 @@
-import express, { Request } from 'express';
+import express from 'express';
 import { NodemailerMailAdapter } from './adapters/nodemailer/nodemailer-mail-adapter';
+import { authenticateRouter } from './auth/routes/autenticate-router';
 import { PrismaFeedbacksRepository } from './repositories/prisma/prisma-feedbacks-repository';
 import { ListFeedbacksService } from './services/list-feedbacks-service';
 import { SubmitFeedBackService } from './services/submit-feedback-service';
@@ -9,6 +10,8 @@ export const routes = express.Router();
 routes.get('/status', (req, res) => {
   return res.status(200).send('ok');
 });
+
+routes.use('/auth', authenticateRouter);
 
 routes.get('/feedbacks', async (req, res) => {
   const { page, size } = req.query;
