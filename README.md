@@ -182,7 +182,6 @@
 
         Instalar axios:
           yarn add axios
-          yarn add @types/axios -D
 
         Instalar jsonwebtoken:
           yarn add jsonwebtoken
