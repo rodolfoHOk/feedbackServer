@@ -210,18 +210,21 @@
 
         Criar o middleware authenticated e usá-lo nas rotas que necessitam de autenticação
 
+- Em produção usamos o Sendgrid para envio de e-mail ao invés do MailTrap
+
+- Validação de campos e erros antes de persistir os dados
+
 ## Ideias para milha extra
 
-1. Tema Light / dark - ok já fiz
+### Back-end
 
-2. Em produção usar algum serviço de e-mail
+- Melhorar HTML e CSS do email
 
-3. Melhorar HTML e CSS do email
+### Front-end
 
-4. Dashboard de feedbacks
-   a. Autenticação Oauth
+- Dashboard de feedbacks
 
-5. Validação de campos e erros
+- Validação de campos e erros
 
 ## 🔗 Links úteis ✨
 

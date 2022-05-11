@@ -1,6 +1,13 @@
 import { Feedback } from '@prisma/client';
 import { MailAdapter } from '../adapters/mail-adapter';
+import { ValidationError } from '../errors/validation-error';
 import { FeedbacksRepository } from '../repositories/feedbacks-repository';
+
+enum FeedbackType {
+  BUG,
+  IDEA,
+  OTHER,
+}
 
 export interface SubmitFeedBackRequest {
   type: string;
@@ -18,15 +25,23 @@ export class SubmitFeedBackService {
     const { type, comment, screenshot } = request;
 
     if (!type) {
-      throw new Error('Type is required');
+      throw new ValidationError('Type is required', 'type');
+    }
+
+    if (
+      type !== FeedbackType.BUG.toString() &&
+      type !== FeedbackType.IDEA.toString() &&
+      type !== FeedbackType.OTHER.toString()
+    ) {
+      throw new ValidationError('Type informed is invalid', 'type');
     }
 
     if (!comment) {
-      throw new Error('Comment is required');
+      throw new ValidationError('Comment is required', 'comment');
     }
 
     if (screenshot && !screenshot.startsWith('data:image/png;base64')) {
-      throw new Error('Invalid screenshot format.');
+      throw new ValidationError('Invalid screenshot format', 'screenshot');
     }
 
     const feedback = await this.feedbacksRepository.create({

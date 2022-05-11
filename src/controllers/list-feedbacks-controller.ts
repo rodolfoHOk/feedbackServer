@@ -16,6 +16,6 @@ export class ListFeedbacksController {
       size ? parseInt(size as string) : 10
     );
 
-    res.status(200).send({ data: feedbacks });
+    res.status(200).json({ data: feedbacks });
   }
 }
