@@ -210,7 +210,7 @@
 
         Criar o middleware authenticated e usá-lo nas rotas que necessitam de autenticação
 
-- Em produção usamos o Sendgrid para envio de e-mail ao invés do MailTrap
+- Em produção usamos o Sendgrid para envio de e-mail ao invés do Mailtrap
 
 - Validação de campos e erros antes de persistir os dados
 
