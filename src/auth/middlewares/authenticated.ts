@@ -15,7 +15,9 @@ export function authenticated(req: Request, res: Response, next: NextFunction) {
   const authToken = req.headers.authorization;
 
   if (!authToken) {
-    return res.status(401).json({ errorCode: 'token.invalid' });
+    return res
+      .status(401)
+      .json({ error: 'token.invalid', status: 'Unauthorized' });
   }
 
   const [, token] = authToken.split(' ');
@@ -32,8 +34,12 @@ export function authenticated(req: Request, res: Response, next: NextFunction) {
       return next();
     }
 
-    return res.status(403).json({ errorCode: 'user.unauthorized' });
+    return res
+      .status(403)
+      .json({ error: 'user.unauthorized', status: 'Forbidden' });
   } catch (err) {
-    return res.status(401).json({ errorCode: 'token.expired' });
+    return res
+      .status(401)
+      .json({ error: 'token.expired', status: 'Unauthorized' });
   }
 }
