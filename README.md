@@ -213,18 +213,6 @@
 
 - Validação de campos e erros antes de persistir os dados
 
-## Ideias para milha extra
-
-### Back-end
-
-- Melhorar HTML e CSS do email
-
-### Front-end
-
-- Dashboard de feedbacks
-
-- Validação de campos e erros
-
 ## 🔗 Links úteis ✨
 
 - [Prisma](https://www.prisma.io/) : Next-generation Node.js and TypeScript ORM
