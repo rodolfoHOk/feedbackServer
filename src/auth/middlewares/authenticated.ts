@@ -1,6 +1,7 @@
 import { Role } from '@prisma/client';
 import { verify } from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
+import { ProblemResponse } from '../../errors/problem-response';
 
 interface Payload {
   sub: string;
@@ -11,7 +12,11 @@ interface Payload {
   };
 }
 
-export function authenticated(req: Request, res: Response, next: NextFunction) {
+export function authenticated(
+  req: Request,
+  res: Response<ProblemResponse>,
+  next: NextFunction
+) {
   const authToken = req.headers.authorization;
 
   if (!authToken) {

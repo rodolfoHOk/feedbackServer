@@ -1,12 +1,14 @@
+import { Feedback } from '@prisma/client';
 import { Request, Response } from 'express';
 import { MailtrapNodemailerMailAdapter } from '../adapters/nodemailer/mailtrap-nodemailer-mail-adapter';
 import { SendgridNodemailerMailAdapter } from '../adapters/nodemailer/sendgrid-nodemeiler-mail-adapter';
+import { ProblemResponse } from '../errors/problem-response';
 import { ValidationError } from '../errors/validation-error';
 import { PrismaFeedbacksRepository } from '../repositories/prisma/prisma-feedbacks-repository';
 import { SubmitFeedBackService } from '../services/submit-feedback-service';
 
 export class CreateFeedbackController {
-  async handle(req: Request, res: Response) {
+  async handle(req: Request, res: Response<ProblemResponse | Feedback>) {
     const { type, comment, screenshot } = req.body;
 
     const prismaFeedbacksRepository = new PrismaFeedbacksRepository();
@@ -26,7 +28,7 @@ export class CreateFeedbackController {
         screenshot,
       });
 
-      return res.status(201).json({ data: feedback });
+      return res.status(201).json(feedback);
     } catch (err) {
       if (err instanceof ValidationError) {
         return res.status(400).json({
