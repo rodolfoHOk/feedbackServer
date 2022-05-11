@@ -18,6 +18,7 @@ const submitFeedback = new SubmitFeedBackService(
   {
     create: createFeedbackSpy,
     findAll: async () => [feedbackReturned],
+    count: async () => 1,
   },
   { sendMail: sendMailSpy }
 );
@@ -54,6 +55,36 @@ describe('Submit feedback', () => {
     ).rejects.toThrow();
   });
 
+  it('should not be able to submit feedback when a invalid type informed', async () => {
+    await expect(
+      submitFeedback.execute({
+        type: 'invalid',
+        comment: 'example comment',
+        screenshot: 'data:image/png;base64,anyWhere',
+      })
+    ).rejects.toThrow();
+  });
+
+  it('should be able to submit feedback when a IDEA type informed', async () => {
+    await expect(
+      submitFeedback.execute({
+        type: 'IDEA',
+        comment: 'example comment',
+        screenshot: 'data:image/png;base64,anyWhere',
+      })
+    ).resolves.not.toThrowError();
+  });
+
+  it('should be able to submit feedback when a OTHER type informed', async () => {
+    await expect(
+      submitFeedback.execute({
+        type: 'OTHER',
+        comment: 'example comment',
+        screenshot: 'data:image/png;base64,anyWhere',
+      })
+    ).resolves.not.toThrowError();
+  });
+
   it('should not be able to submit feedback without comment', async () => {
     await expect(
       submitFeedback.execute({
@@ -72,5 +103,14 @@ describe('Submit feedback', () => {
         screenshot: 'anyWhere.jpg',
       })
     ).rejects.toThrow();
+  });
+
+  it('should be able to submit feedback when screenshot not is informed', async () => {
+    await expect(
+      submitFeedback.execute({
+        type: 'BUG',
+        comment: 'example comment',
+      })
+    ).resolves.not.toThrowError();
   });
 });

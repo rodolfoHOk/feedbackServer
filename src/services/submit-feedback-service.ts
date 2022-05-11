@@ -29,9 +29,9 @@ export class SubmitFeedBackService {
     }
 
     if (
-      type !== FeedbackType.BUG.toString() &&
-      type !== FeedbackType.IDEA.toString() &&
-      type !== FeedbackType.OTHER.toString()
+      type !== FeedbackType[0] &&
+      type !== FeedbackType[1] &&
+      type !== FeedbackType[2]
     ) {
       throw new ValidationError('Type informed is invalid', 'type');
     }
