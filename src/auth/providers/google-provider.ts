@@ -14,7 +14,7 @@ interface GoogleUserInfos {
 
 const GOOGLE_TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const GOOGLE_USER_INFOS_URL =
-  'https://openidconnect.googleapis.com/v1/userinfo';
+  'https://www.googleapis.com/oauth2/v1/userinfo?alt=json';
 
 export class GoogleProvider implements Provider {
   async getToken(code: string): Promise<string> {

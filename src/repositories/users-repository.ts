@@ -1,7 +1,6 @@
 import { Role, User } from '@prisma/client';
 
 export interface UserCreateData {
-  social_id: string;
   name: string;
   email: string;
   avatar_url: string;
@@ -12,6 +11,6 @@ export interface UserCreateData {
 
 export interface UsersRepository {
   create: (data: UserCreateData) => Promise<User>;
-  findBySocialId: (socialId: string) => Promise<User | null>;
+  findByEmail: (email: string) => Promise<User | null>;
   updateLastAccess: (id: string) => Promise<User>;
 }

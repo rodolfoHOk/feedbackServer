@@ -18,14 +18,15 @@ export class AuthenticateUserService {
     const accessToken = await this.provider.getToken(code);
 
     const userInfos: UserInfos = await this.provider.getUserInfos(accessToken);
+    let { id, name, email, avatar_url } = userInfos;
+    if (!id) {
+      id = 'social_id_not_informed';
+    }
 
-    const { id, name, email, avatar_url } = userInfos;
-
-    let user = await this.userRepository.findBySocialId(id);
+    let user = await this.userRepository.findByEmail(email);
 
     if (!user) {
       user = await this.userRepository.create({
-        social_id: id,
         name,
         email,
         avatar_url,

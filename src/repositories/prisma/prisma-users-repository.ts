@@ -3,19 +3,10 @@ import { prisma } from '../../prisma';
 
 export class PrismaUsersRepository implements UsersRepository {
   async create(data: UserCreateData) {
-    const {
-      social_id,
-      name,
-      email,
-      avatar_url,
-      role,
-      created_at,
-      last_access,
-    } = data;
+    const { name, email, avatar_url, role, created_at, last_access } = data;
 
     return await prisma.user.create({
       data: {
-        social_id,
         name,
         email,
         avatar_url,
@@ -26,10 +17,10 @@ export class PrismaUsersRepository implements UsersRepository {
     });
   }
 
-  async findBySocialId(socialId: string) {
+  async findByEmail(email: string) {
     return await prisma.user.findFirst({
       where: {
-        social_id: socialId,
+        email: email,
       },
     });
   }

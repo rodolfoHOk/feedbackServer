@@ -23,7 +23,6 @@ model Feedback {
 model User {
   id String @id @default(uuid())
 
-  social_id   String
   name        String
   email       String
   avatar_url  String
