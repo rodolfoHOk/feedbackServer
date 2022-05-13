@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { ProblemResponse } from '../../errors/problem-response';
 import { PrismaUsersRepository } from '../../repositories/prisma/prisma-users-repository';
+import { AuthProblemResponse } from '../errors/AuthProblemResponse';
 import { FacebookProvider } from '../providers/facebook-provider';
 import {
   AuthenticateUserService,
@@ -10,7 +10,7 @@ import {
 export class FacebookAuthenticateUserController {
   async handle(
     req: Request,
-    res: Response<ProblemResponse | TokenAndAuthenticatedUser>
+    res: Response<AuthProblemResponse | TokenAndAuthenticatedUser>
   ) {
     const { code } = req.body;
 

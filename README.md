@@ -213,6 +213,8 @@
 
 - Validação de campos e erros antes de persistir os dados
 
+- Endpoint para buscar informações do usuário logado pelo token
+
 ## 🔗 Links úteis ✨
 
 - [Prisma](https://www.prisma.io/) : Next-generation Node.js and TypeScript ORM

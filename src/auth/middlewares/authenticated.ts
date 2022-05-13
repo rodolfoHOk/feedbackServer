@@ -3,7 +3,7 @@ import { verify } from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
 import { ProblemResponse } from '../../errors/problem-response';
 
-interface Payload {
+interface TokenPayload {
   sub: string;
   user: {
     id: string;
@@ -31,7 +31,7 @@ export function authenticated(
     const tokenPayload = verify(
       token,
       process.env.JWT_SECRET as string
-    ) as Payload;
+    ) as TokenPayload;
 
     const userRole = tokenPayload.user.role;
 
