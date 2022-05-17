@@ -13,11 +13,21 @@ datasource db {
 model Feedback {
   id String @id @default(uuid())
 
-  type       String
-  comment    String
-  screenshot String?
+  type        String
+  comment     String
+  screenshot  String?
+  status      FeedbackStatus
+  created_at  DateTime
+  modified_at DateTime?
 
   @@map("feedbacks")
+}
+
+enum FeedbackStatus {
+  PENDING
+  REJECTED
+  RESOLVED
+  UNDER_ANALYSIS
 }
 
 model User {

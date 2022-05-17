@@ -3,6 +3,7 @@ import {
   FeedbackCreateData,
 } from '../feedbacks-repository';
 import { prisma } from '../../prisma';
+import { Feedback, FeedbackStatus } from '@prisma/client';
 
 export class PrismaFeedbacksRepository implements FeedbacksRepository {
   async create(data: FeedbackCreateData) {
@@ -13,6 +14,8 @@ export class PrismaFeedbacksRepository implements FeedbacksRepository {
         type,
         comment,
         screenshot,
+        status: FeedbackStatus.PENDING,
+        created_at: new Date(),
       },
     });
   }
@@ -24,15 +27,31 @@ export class PrismaFeedbacksRepository implements FeedbacksRepository {
       skip,
       take: size,
       orderBy: {
-        id: 'desc',
+        created_at: 'desc',
       },
     });
   }
 
   async count() {
-    return await prisma.feedback.count({
-      orderBy: {
-        id: 'desc',
+    return await prisma.feedback.count();
+  }
+
+  async findById(id: string) {
+    return await prisma.feedback.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  }
+
+  async updateStatus(id: string, status: FeedbackStatus) {
+    return await prisma.feedback.update({
+      where: {
+        id: id,
+      },
+      data: {
+        status: status,
+        modified_at: new Date(),
       },
     });
   }
