@@ -1,7 +1,8 @@
 import { User } from '@prisma/client';
 import { Request, Response } from 'express';
 import { PrismaUsersRepository } from '../../repositories/prisma/prisma-users-repository';
-import { AuthProblemResponse } from '../errors/AuthProblemResponse';
+import { AuthErrorTypes } from '../errors/auth-error-types';
+import { AuthProblemResponse } from '../errors/auth-problem-response';
 import { GetAuthenticatedUserInfosService } from '../services/get-authenticated-user-infos-service';
 
 export class GetAuthenticatedUserInfosController {
@@ -9,9 +10,11 @@ export class GetAuthenticatedUserInfosController {
     const token = req.headers.authorization;
 
     if (!token) {
-      return res.status(400).json({
-        error: 'Authorization token not informed',
-        status: 'Baq Request',
+      return res.status(401).json({
+        type: AuthErrorTypes.AUTHENTICATION_ERROR,
+        title: 'Unauthorized',
+        detail: 'Authorization token not informed',
+        status: 401,
       });
     }
 
@@ -23,8 +26,10 @@ export class GetAuthenticatedUserInfosController {
 
     if (!user) {
       return res.status(404).json({
-        error: 'User infos not found',
-        status: 'Not Found',
+        type: AuthErrorTypes.RESOURCE_NOT_FOUND,
+        title: 'Resource Not Found',
+        detail: 'User infos not found',
+        status: 404,
       });
     }
 

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { PrismaUsersRepository } from '../../repositories/prisma/prisma-users-repository';
-import { AuthProblemResponse } from '../errors/AuthProblemResponse';
+import { AuthErrorTypes } from '../errors/auth-error-types';
+import { AuthProblemResponse } from '../errors/auth-problem-response';
 import { FacebookProvider } from '../providers/facebook-provider';
 import {
   AuthenticateUserService,
@@ -24,8 +25,10 @@ export class FacebookAuthenticateUserController {
     } catch (err) {
       if (err instanceof Error) {
         return res.json({
-          error: err.message,
-          status: 'Internal Server Error',
+          type: AuthErrorTypes.AUTHENTICATION_ERROR,
+          title: 'Internal Server Error',
+          status: 500,
+          detail: err.message,
         });
       }
       console.log(err);

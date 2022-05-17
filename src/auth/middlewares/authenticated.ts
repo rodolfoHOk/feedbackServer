@@ -1,7 +1,8 @@
 import { Role } from '@prisma/client';
 import { verify } from 'jsonwebtoken';
 import { NextFunction, Request, Response } from 'express';
-import { ProblemResponse } from '../../errors/problem-response';
+import { AuthProblemResponse } from '../errors/auth-problem-response';
+import { AuthErrorTypes } from '../errors/auth-error-types';
 
 interface TokenPayload {
   sub: string;
@@ -14,15 +15,18 @@ interface TokenPayload {
 
 export function authenticated(
   req: Request,
-  res: Response<ProblemResponse>,
+  res: Response<AuthProblemResponse>,
   next: NextFunction
 ) {
   const authToken = req.headers.authorization;
 
   if (!authToken) {
-    return res
-      .status(401)
-      .json({ error: 'token.invalid', status: 'Unauthorized' });
+    return res.status(401).json({
+      type: AuthErrorTypes.AUTHENTICATION_ERROR,
+      title: 'Unauthorized',
+      detail: 'Authorization token not informed or invalid',
+      status: 401,
+    });
   }
 
   const [, token] = authToken.split(' ');
@@ -39,12 +43,18 @@ export function authenticated(
       return next();
     }
 
-    return res
-      .status(403)
-      .json({ error: 'user.unauthorized', status: 'Forbidden' });
+    return res.status(403).json({
+      type: AuthErrorTypes.FORBIDDEN_ERROR,
+      title: 'Forbidden',
+      detail: 'User not have permission for this operation',
+      status: 403,
+    });
   } catch (err) {
-    return res
-      .status(401)
-      .json({ error: 'token.expired', status: 'Unauthorized' });
+    return res.status(401).json({
+      type: AuthErrorTypes.AUTHENTICATION_ERROR,
+      title: 'Unauthorized',
+      detail: 'Authorization token expired',
+      status: 401,
+    });
   }
 }
