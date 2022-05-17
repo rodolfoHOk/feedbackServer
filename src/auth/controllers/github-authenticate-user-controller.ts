@@ -24,10 +24,10 @@ export class GithubAuthenticateUserController {
       return res.json(result);
     } catch (err) {
       if (err instanceof Error) {
-        return res.json({
+        return res.status(502).json({
           type: AuthErrorTypes.AUTHENTICATION_ERROR,
-          title: 'Internal Server Error',
-          status: 500,
+          title: 'Bad Gateway',
+          status: 502,
           detail: err.message,
         });
       }
