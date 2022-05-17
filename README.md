@@ -140,15 +140,7 @@
 
 - Testes para serviço de listagem de feedback
 
-- Adicionado atributos status e datas de criação e modificação no feedback
-
-- Endpoint para atualizar o status do feedback
-
-- lista de feedback ordenada por data criação decrescente
-
-- Testes para serviço de atualização do status de feedback
-
-- ### Autenticação OAuth2 com Github, Google e Facebook
+- Autenticação OAuth2 com Github, Google e Facebook
 
         Cadastrar aplicação no github:
           Github / Settings / Developer settings / OAuth Apps / new OAuth App
@@ -222,6 +214,14 @@
 - Validação de campos e erros antes de persistir os dados
 
 - Endpoint para buscar informações do usuário logado pelo token
+
+- Adicionado atributos status e datas de criação e modificação no feedback
+
+- Endpoint para atualizar o status do feedback
+
+- lista de feedback ordenada por data criação decrescente
+
+- Testes para serviço de atualização do status de feedback
 
 ## 🔗 Links úteis ✨
 
