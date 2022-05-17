@@ -1,4 +1,4 @@
-import { Feedback } from '@prisma/client';
+import { Feedback, FeedbackStatus } from '@prisma/client';
 import {
   SubmitFeedBackRequest,
   SubmitFeedBackService,
@@ -9,6 +9,9 @@ const feedbackReturned: Feedback = {
   type: 'BUG',
   comment: 'example comment',
   screenshot: 'data:image/png;base64,anyWhere',
+  status: FeedbackStatus.PENDING,
+  created_at: new Date(),
+  modified_at: null,
 };
 
 const createFeedbackSpy = jest.fn().mockResolvedValue(feedbackReturned);
@@ -19,6 +22,8 @@ const submitFeedback = new SubmitFeedBackService(
     create: createFeedbackSpy,
     findAll: async () => [feedbackReturned],
     count: async () => 1,
+    findById: async () => feedbackReturned,
+    updateStatus: async () => feedbackReturned,
   },
   { sendMail: sendMailSpy }
 );

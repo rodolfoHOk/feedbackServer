@@ -1,4 +1,4 @@
-import { Feedback } from '@prisma/client';
+import { Feedback, FeedbackStatus } from '@prisma/client';
 import { ListFeedbacksService, PagedFeedbacks } from './list-feedbacks-service';
 
 const feedbackReturned: Feedback = {
@@ -6,6 +6,9 @@ const feedbackReturned: Feedback = {
   type: 'BUG',
   comment: 'example comment',
   screenshot: 'data:image/png;base64,anyWhere',
+  status: FeedbackStatus.PENDING,
+  created_at: new Date(),
+  modified_at: null,
 };
 
 const pagedFeedbacks: PagedFeedbacks = {
@@ -21,6 +24,8 @@ const listFeedback = new ListFeedbacksService({
   create: async () => feedbackReturned,
   findAll: findAllFeedbacksSpy,
   count: async () => 1,
+  findById: async () => feedbackReturned,
+  updateStatus: async () => feedbackReturned,
 });
 
 describe('List feedbacks', () => {
