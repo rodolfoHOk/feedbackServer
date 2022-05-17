@@ -2,7 +2,7 @@ import { Feedback } from '@prisma/client';
 import { Request, Response } from 'express';
 import { MailtrapNodemailerMailAdapter } from '../adapters/nodemailer/mailtrap-nodemailer-mail-adapter';
 import { SendgridNodemailerMailAdapter } from '../adapters/nodemailer/sendgrid-nodemeiler-mail-adapter';
-import { ErroTypes } from '../errors/error-types';
+import { ErrorTypes } from '../errors/error-types';
 import { ProblemResponse } from '../errors/problem-response';
 import { ValidationError } from '../errors/validation-error';
 import { PrismaFeedbacksRepository } from '../repositories/prisma/prisma-feedbacks-repository';
@@ -33,7 +33,7 @@ export class CreateFeedbackController {
     } catch (err) {
       if (err instanceof ValidationError) {
         return res.status(400).json({
-          type: ErroTypes.INVALID_DATA,
+          type: ErrorTypes.INVALID_DATA,
           title: 'Bad Request',
           detail: err.message,
           status: 400,
@@ -44,7 +44,7 @@ export class CreateFeedbackController {
       console.log(err);
 
       return res.status(500).json({
-        type: ErroTypes.INTERNAL_SERVER_ERROR,
+        type: ErrorTypes.INTERNAL_SERVER_ERROR,
         title: 'Internal Server Error',
         detail: 'Something went wrong',
         status: 500,
