@@ -5,20 +5,22 @@
 ## 👨‍💻 Tecnologias e bibliotecas utilizadas 👩‍💻
 
 - Javascript / Typescript : Linguagem programação
-
-- Node : JavaScript runtime
-
-- Express : Framework web minimalista para node
-
-- Prisma : TypeScript ORM para node
-
-- Nodemailer : Envio de emails para node
-
+- NodeJs : JavaScript runtime
+- Express : Framework web minimalista para NodeJs
+- Prisma : TypeScript ORM para NodeJs
+- Nodemailer : Envio de emails para NodeJs
 - SOLID : Cinco princípios da programação orientada a objetos
-
 - Jest : Framework para testes unitários
+- Autenticação OAuth2 : Login social com Github ou Google ou Facebook
 
-## 🗃️ Guia 📚
+### 📚 bibliotecas adicionais 🗃️
+
+- axios : Cliente HTTP baseado em promessa para o navegador e Nodejs
+- cors : CORS middleware para NodeJS
+- jsonwebtoken : Implementação do JSON Web Token
+- query-string : Utilitário de strings de consulta de URL
+
+## 📖 Guia 📃
 
 - Iniciando um projeto Node Js
 
@@ -96,24 +98,6 @@
           estando logado
           https://mailtrap.io/inboxes e entrar no inbox criado
 
-- ### SOLID
-
-  #### Princípios
-
-  1. Sigle Responsibility Principle
-  2. Open / Close Principle
-  3. Liskov Substitution Principle
-  4. Interface Segregation Principle
-  5. Dependency Inversion Principle
-
-  #### Descrição
-
-  1. Cada classe / função tem uma responsabilidade única.
-  2. As classes da aplicação devem ser abertas para extensão e fachadas para modificação.
-  3. Nós devemos poder substituir uma classe pai por uma herança dela e tudo continuar funcionando.
-  4. Segregar as interfaces sempre que possível classes implementarão várias interfaces ao invés de uma MegaInterface.
-  5. Ao invés da classe buscar as dependências o contexto externo a ela que diz quais a classe usará.
-
 - Configurando o Jest para testes
 
         npm i jest -D
@@ -131,14 +115,6 @@
 
         npm i cors
         npm i @types/cors -D
-
-## ➕ Milha extra - O que fiz além ✨
-
-- Endpoint para listagem de feedback paginada
-
-- Endpoint de criação de feedback retorna o feedback salvo no banco de dados
-
-- Testes para serviço de listagem de feedback
 
 - Autenticação OAuth2 com Github, Google e Facebook
 
@@ -209,22 +185,38 @@
 
         Criar o middleware authenticated e usá-lo nas rotas que necessitam de autenticação
 
+## 📃 Sobre o SOLID 📖
+
+### Princípios
+
+1. Sigle Responsibility Principle
+2. Open / Close Principle
+3. Liskov Substitution Principle
+4. Interface Segregation Principle
+5. Dependency Inversion Principle
+
+### Descrição
+
+1. Cada classe / função tem uma responsabilidade única.
+2. As classes da aplicação devem ser abertas para extensão e fachadas para modificação.
+3. Nós devemos poder substituir uma classe pai por uma herança dela e tudo continuar funcionando.
+4. Segregar as interfaces sempre que possível classes implementarão várias interfaces ao invés de uma MegaInterface.
+5. Ao invés da classe buscar as dependências o contexto externo a ela que diz quais a classe usará.
+
+## ➕ Milha extra - O que fiz além ✨
+
+- Endpoint para listagem de feedback paginada
+- Endpoint de criação de feedback retorna o feedback salvo no banco de dados
+- Testes para serviço de listagem de feedback
+- Autenticação OAuth2 com Github, Google e Facebook
 - Em produção usamos o Sendgrid para envio de e-mail ao invés do Mailtrap
-
 - Validação de campos e erros antes de persistir os dados
-
 - Endpoint para buscar informações do usuário logado pelo token
-
 - Adicionado atributos status e datas de criação e modificação no feedback
-
 - Endpoint para atualizar o status do feedback
-
 - Lista de feedback ordenada por data criação decrescente
-
 - Testes para serviço de atualização do status de feedback
-
 - Filtro de buscar por status para listagem de feedbacks e validação de status
-
 - Refatoração do teste de listagem de feedbacks para incluir a validação
 
 ## 🔗 Links úteis ✨
