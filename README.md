@@ -219,9 +219,13 @@
 
 - Endpoint para atualizar o status do feedback
 
-- lista de feedback ordenada por data criação decrescente
+- Lista de feedback ordenada por data criação decrescente
 
 - Testes para serviço de atualização do status de feedback
+
+- Filtro de buscar por status para listagem de feedbacks e validação de status
+
+- Refatoração do teste de listagem de feedbacks para incluir a validação
 
 ## 🔗 Links úteis ✨
 

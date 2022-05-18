@@ -8,8 +8,12 @@ export interface FeedbackCreateData {
 
 export interface FeedbacksRepository {
   create: (data: FeedbackCreateData) => Promise<Feedback>;
-  findAll: (page: number, size: number) => Promise<Feedback[]>;
-  count: () => Promise<number>;
+  findAll: (
+    page: number,
+    size: number,
+    status?: FeedbackStatus
+  ) => Promise<Feedback[]>;
+  count: (status?: FeedbackStatus) => Promise<number>;
   findById: (id: string) => Promise<Feedback | null>;
   updateStatus: (id: string, status: FeedbackStatus) => Promise<Feedback>;
 }

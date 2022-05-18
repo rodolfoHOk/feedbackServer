@@ -3,7 +3,7 @@ import {
   FeedbackCreateData,
 } from '../feedbacks-repository';
 import { prisma } from '../../prisma';
-import { Feedback, FeedbackStatus } from '@prisma/client';
+import { FeedbackStatus } from '@prisma/client';
 
 export class PrismaFeedbacksRepository implements FeedbacksRepository {
   async create(data: FeedbackCreateData) {
@@ -20,20 +20,27 @@ export class PrismaFeedbacksRepository implements FeedbacksRepository {
     });
   }
 
-  async findAll(page: number, size: number) {
+  async findAll(page: number, size: number, status?: FeedbackStatus) {
     const skip = Math.floor((page - 1) * size);
 
     return await prisma.feedback.findMany({
       skip,
       take: size,
+      where: {
+        ...(status ? { status: status } : {}),
+      },
       orderBy: {
         created_at: 'desc',
       },
     });
   }
 
-  async count() {
-    return await prisma.feedback.count();
+  async count(status?: FeedbackStatus) {
+    return await prisma.feedback.count({
+      where: {
+        status: status,
+      },
+    });
   }
 
   async findById(id: string) {

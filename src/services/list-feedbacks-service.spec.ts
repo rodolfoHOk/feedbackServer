@@ -1,4 +1,5 @@
 import { Feedback, FeedbackStatus } from '@prisma/client';
+import { ValidationError } from '../errors/validation-error';
 import { ListFeedbacksService, PagedFeedbacks } from './list-feedbacks-service';
 
 const feedbackReturned: Feedback = {
@@ -35,5 +36,15 @@ describe('List feedbacks', () => {
     );
 
     expect(findAllFeedbacksSpy).toBeCalled();
+  });
+
+  it('should return a paged list of feedbacks when pass a valid status', async () => {
+    await expect(listFeedback.execute(1, 20, 'PENDING')).resolves.not.toThrow();
+  });
+
+  it('should throw a validation error when pass a invalid status', async () => {
+    await expect(
+      listFeedback.execute(1, 20, 'INVALID_STATUS')
+    ).rejects.toThrowError(ValidationError);
   });
 });
